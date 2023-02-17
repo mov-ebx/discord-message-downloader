@@ -1,3 +1,4 @@
 token.txt
 data.json
 *.html
+__pycache__

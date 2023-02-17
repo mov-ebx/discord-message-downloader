@@ -1,6 +1,6 @@
-import requests, json
+import requests, json, htmlify
 
-TOKEN = open('src/token.txt', 'r').read()
+TOKEN = open('token.txt', 'r').read()
 
 user_to_channel = lambda user_id: requests.post('https://discord.com/api/v9/users/@me/channels', json={'recipients':[user_id]}, headers={'authorization':TOKEN}).json()['id']
 
@@ -18,7 +18,11 @@ def save_data(id):
 
 download_type = int(input('\u001b[34mPlease select which type of channel you want to download?\u001b[0m\n\n1. User DMs\n2. Text channel\n\n> '))
 
+id = 0
 if download_type == 1:
-    save_data(user_to_channel(int(input('\n\u001b[34mEnter their user ID:\u001b[0m '))))
+    id = user_to_channel(int(input('\n\u001b[34mEnter their user ID:\u001b[0m ')))
 elif download_type == 2:
-    save_data(int(input('\n\u001b[34mEnter the channel ID:\u001b[0m ')))
+    id = int(input('\n\u001b[34mEnter the channel ID:\u001b[0m '))
+
+save_data(id)
+htmlify.write(id)
